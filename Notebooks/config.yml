@@ -1,0 +1,127 @@
+PERIOD: 50y
+
+SPLIT: 0.8 # Share of data to be labeled "training"
+
+WINDOWS: 
+  - 5 # Weekly
+  - 21 # Monthly
+  - 63 # Quarterly
+  - 252 # Yearly
+
+CORR_WINDOW: 63 # Window for correlation matrix
+
+ETFS: 
+  ### Global/whole-market
+  - VT
+
+  ### US
+  # - SPY
+  # - VOO
+  - RSP # Equal-weight SP500
+
+  ### EU
+  # - VGK
+  ### China
+  # - MCHI
+  # - FXI
+  ### Japan
+  # - EWJ
+  ### India
+  # - INDA
+  
+  ### Emerging
+  - VWO
+  # - IEMG
+  # - EEM
+
+  ### Small cap
+  - IWM
+
+  ### Tech
+  - XLK
+
+  ### AI/Robotics
+  # - BOTZ
+  # - AIQ
+
+  ### Healthcare
+  - XLV
+  # - VHT
+
+  ### Mining/materials
+  - XLB
+  
+  ### Financials
+  - XLF
+
+  ### Real-estate
+  - VNQ
+
+  ### Utilities
+  - XLU
+
+  ### Consumer discretionary/luxury
+  - XLY
+
+  ### Consumer staples/essentials
+  - XLP
+  
+  ### Gold-related
+  # - IAU
+  - GLD
+  # - GC=F
+
+  ### Crude oil
+  # - WTI
+  - USO
+  # - BCO
+  
+  ### Natural gas
+  # - UNG # Too new + shit
+
+  ### Agriculture
+  - DBA
+
+  ### US bonds
+  # - GOVT 
+  - TLT
+
+  ### Corpo bonds
+  - LQD
+
+  ### High-yield bonds
+  - HYG
+  # - JNK
+
+  ### Emerging market bonds
+  - EMB
+
+  ### Value stocks
+  - VTV
+
+  ### Growth stocks
+  - VUG
+
+  ### Low-volatility
+  # - USMV # Too new
+
+  ### Nuclear 
+  - URA
+
+  ### Defense
+  - ITA
+
+  ### Infrastructure
+  # - PAVE # Too new
+
+  ### Water
+  - PHO
+
+  ### Biotech
+  - XBI
+  # - IBB
+
+  ### Banks
+  - KBE
+  # - KRE
+
