@@ -43,6 +43,12 @@ The python [yfinance](https://pypi.org/project/yfinance/) package is used to fet
 
 Python files and notebooks contain detailed information on their respective methodology. 
 
+### Statistical tests
+
+By statistical testing, we want to identify if (1) **within equities** the return distributions differ **between regimes**, and (2) if **between equities** the return distributions differ **within regimes**. 
+
+Both (1) and (2) are tested via the non-parametric **Kruskal-Wallis *H* test**, as financial returns data is fat-tailed and we cannot assume heteroscedasticity. In the case of a rejected null-hypothesis, a post-hoc comparison is needed to identify which distributions differ. For this, Dunn's test is used.
+
 ## Results & Discussion
 
 ## Limitations
