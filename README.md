@@ -47,7 +47,10 @@ Python files and notebooks contain detailed information on their respective meth
 
 By statistical testing, we want to identify if (1) **within equities** the return distributions differ **between regimes**, and (2) if **between equities** the return distributions differ **within regimes**. Please note that all statistical testing informative for the eventual testing is performed **only in training data!** We do not want data leakage informing us of the future "winning teams".
 
-Both (1) and (2) are tested via the non-parametric **Kruskal-Wallis *H* test**, as financial returns data is fat-tailed and we cannot assume heteroscedasticity. In the case of a rejected null-hypothesis, a post-hoc comparison is needed to identify which distributions differ. For this, Dunn's test is used.
+(1) is tested via the non-parametric **Kruskal-Wallis *H* test**, as financial returns data is fat-tailed and we cannot assume heteroscedasticity. In the case of a rejected null-hypothesis, a post-hoc comparison is needed to identify in which regimes distributions differ. For this, **Dunn's post-hoc test** is used.
+Finally, a **simple linear regression based on the identified regime** is used to determine if expected returns meaningfully differ from 0 in any regimes, for any asset class.
+
+In the case of (2), we are less interested in return distributions (as we assume different asset classes have different return distributions). Instead, we want to establish a difference in mean return. For this, we can use **Welch's ANOVA** which does not require equal variances. Despite violating the assumption of normal distribution, the results are still likely relevant.
 
 ## Results & Discussion
 
