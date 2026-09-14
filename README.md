@@ -56,7 +56,7 @@ In the case of (2), we are less interested in return distributions (as we assume
 
 ## Limitations
 
-### Methodological
+### Clustering
 
 - Clustering is done via a simple KMeans approach. This has poor(er) performance for identifying odd-shaped or -density clusters which may be present in our data.
 - Both the PCA and clustering approach are not adjusted for new information in the OOS test (e.g. the preceding OOS dates are added to the algorithms for each day).
