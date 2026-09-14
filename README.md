@@ -45,7 +45,7 @@ Python files and notebooks contain detailed information on their respective meth
 
 ### Statistical tests
 
-By statistical testing, we want to identify if (1) **within equities** the return distributions differ **between regimes**, and (2) if **between equities** the return distributions differ **within regimes**. 
+By statistical testing, we want to identify if (1) **within equities** the return distributions differ **between regimes**, and (2) if **between equities** the return distributions differ **within regimes**. Please note that all statistical testing informative for the eventual testing is performed **only in training data!** We do not want data leakage informing us of the future "winning teams".
 
 Both (1) and (2) are tested via the non-parametric **Kruskal-Wallis *H* test**, as financial returns data is fat-tailed and we cannot assume heteroscedasticity. In the case of a rejected null-hypothesis, a post-hoc comparison is needed to identify which distributions differ. For this, Dunn's test is used.
 
