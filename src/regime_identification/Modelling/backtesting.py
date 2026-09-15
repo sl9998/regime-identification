@@ -41,7 +41,7 @@ def backtest_strategies(etfs, strategies, condition_col = "cluster", start_date 
         ## TODO: Can likely be optimized through some transform magic
         for cluster in list(df.columns):
             for ticker in list(df.index):
-                logret = etfs[(etfs["Ticker"] == ticker) & (etfs[condition_col] == cluster)].loc[:, "logret"]
+                logret = etfs[(etfs["Ticker"] == ticker) & (etfs[condition_col] == cluster)].loc[:, "f_logret"]
                 multiplier = df.loc[ticker, cluster]
 
                 logret_adj = logret.dropna() * multiplier # Drop NAs to avoid problems

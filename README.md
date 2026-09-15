@@ -1,8 +1,15 @@
 market-forecasting
 =======
 
-## Abstract
 > Recreational quant research. I am not responsible for financial disasters resulting from using this repo.
+
+## Abstract
+
+Contemporary regime identification literature often neglects to confirm if observations hold and are actionable in out-of-sample periods. I developed a regime-identification algorithm using data on 16 macro-economic indicators available on january 1st 2019, which identified 4 unique economic regimes. I used statistical tests to assess performance of 40+ asset class ETFs during the 4 regime periods and used the results to develop two simple trading strategies. I then deployed the algorithm on post-2019 data where both trading strategies achieved superior returns (>150% return, sharpe > 1.18) to the benchmark equal-weighted S&P500 (98% return, sharpe = 0.65) and holding all assets classes equally (83% return, sharpe = 0.70).
+
+![backtest plot](260915_backtest.png)
+> **Figure 1: Logarithmic returns over the forward-OOS backtesting period.** 
+*strat = purely regime-based strategy; strat2 = 50% strat, 50% RSP portfolio; BM = benchmark, 100% RSP portfolio; JH = portfolio equally holding all asset classes.* 
 
 ## Installation
 
@@ -54,6 +61,14 @@ In the case of (2), we are less interested in return distributions (as we assume
 
 ## Results & Discussion
 
+### Statistical tests
+
+Extensive discussion of statistical test results is provided in the Notebook.
+
+### Backtest
+
+W.I.P.
+
 ## Limitations
 
 ### Clustering
@@ -63,4 +78,5 @@ In the case of (2), we are less interested in return distributions (as we assume
 
 ### Practical
 
+- No transaction costs are accounted for during backtests
 - As of yet, no system has been set up to retrieve live macro-economic data from a central database. Real-time implementation of this algorithm is currently out-of-scope.
