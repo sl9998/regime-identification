@@ -29,9 +29,9 @@ python -m pip install -e .
 
 ## Introduction & Purpose
 
-Market macro-economic circumstances are [well-known](https://www.ssga.com/library-content/assets/pdf/global/pc/2025/decoding-market-regimes-with-machine-learning.pdf) to affect equity performance differently accross asset classes. While research conventionally succeeds in identifying these regimes over long historical periods, there is rarely any out-of-sample (OOS) testing to assess model performance on unseen market data. Additionally, these strategies suffer from strong look-ahead bias where the model is able to retroactively classify periods based on their relation to future circumstances. This would not be possible when deploying a "live" model.
+Market macro-economic circumstances are [established](https://www.ssga.com/library-content/assets/pdf/global/pc/2025/decoding-market-regimes-with-machine-learning.pdf) to affect equity performance differently accross asset classes. While research conventionally succeeds in identifying regimes over historical periods, there is rarely any out-of-sample (OOS) testing to assess model performance on unseen market data. Additionally, clustering-based strategies suffer from strong look-ahead bias where the model is able to retroactively classify periods based on their relation to future circumstances. This would not be possible when deploying a "live" model.
 
-This project aims to develop a robust market regime identification algorithm based on historical market and macro-economic data. Forward OOS regime-based statistical tests and trading strategies will then be used to assess the consistency of best and worst performing asset classes in each phase. This necessitates a biphasic approach where a model is first trained on a sample period and then deployed OOS. 
+This project aims to develop a robust market regime identification algorithm based on historical market and macro-economic data. Regime-based statistical tests will be used to identify best and worst asset performing asset classes per regime. Finally, a trading strategy will be developed based on the test results and validated OOS. This necessitates a biphasic approach where a model is first trained on a sample period and then deployed OOS without look-ahead bias. 
 
 ## Materials & Methods
 
@@ -45,7 +45,7 @@ Python files and notebooks contain detailed information on their respective meth
 
 ### Statistical tests
 
-By statistical testing, we want to identify if (1) **within equities** the return distributions differ **between regimes**, and (2) if **between equities** the return distributions differ **within regimes**. Please note that all statistical testing informative for the eventual testing is performed **only in training data!** We do not want data leakage informing us of the future "winning teams".
+By statistical testing, we want to identify if (1) **within equities** the return distributions differ **between regimes**, and (2) if **between equities** the return distributions differ **within regimes**. Note that all statistical testing informative for the eventual trading strategy is performed **only in training data!** We do not want data leakage informing us of the future "winning teams".
 
 (1) is tested via the non-parametric **Kruskal-Wallis *H* test**, as financial returns data is fat-tailed and we cannot assume heteroscedasticity. In the case of a rejected null-hypothesis, a post-hoc comparison is needed to identify in which regimes distributions differ. For this, **Dunn's post-hoc test** is used.
 Finally, a **simple linear regression based on the identified regime** is used to determine if expected returns meaningfully differ from 0 in any regimes, for any asset class.
@@ -58,9 +58,8 @@ In the case of (2), we are less interested in return distributions (as we assume
 
 ### Clustering
 
-- Clustering is done via a simple KMeans approach. This has poor(er) performance for identifying odd-shaped or -density clusters which may be present in our data.
-- Both the PCA and clustering approach are not adjusted for new information in the OOS test (e.g. the preceding OOS dates are added to the algorithms for each day).
-- Novel clusters cannot be identified in real-time using this approach. 
+- Clustering is done via a simple KMeans approach. This has poor(er) performance for identifying odd-shaped or -density clusters which may be present in our data. Additionally, clustering is not updated with new data and thus no novel clusters can be identified OOS.
+- Although KMeans provides simplicity and usable results, clustering based on hidden markov models may have additional benefits and align more closely to [pre-existing research](https://www.mdpi.com/2227-7390/13/7/1128)
 
 ### Practical
 

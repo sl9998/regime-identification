@@ -72,7 +72,7 @@ def expanding_norm(df, norm_start):
     return(df_out)
 
 def get_pca(df, n_components = None): 
-    pca_f = skl.decomposition.PCA(n_components = n_components)
+    pca_f = skl.decomposition.PCA(n_components = n_components, random_state = 42)
     pca = pca_f.fit(df)
     reduced = pd.DataFrame(pca.transform(df), index = df.index)
     reduced.columns = [f"PC{i}" for i in reduced.columns]
@@ -113,7 +113,7 @@ def get_corrM(df, corr_window = 21):
 
 def get_regimes(glob_full, split_date = None,
                 do_pca = True, n_pcs = 5, 
-                n_clusters = 3, rand = 42,
+                n_clusters = 3, 
                 show_plots = True,
                 zoom = False, t_min = (2019, 1, 1), t_max = (2022, 1, 1)):
 
@@ -148,7 +148,7 @@ def get_regimes(glob_full, split_date = None,
         glob_full = full_pcs.join(residuals)
 
     # Clustering
-    km = MiniBatchKMeans(n_clusters = n_clusters, random_state = rand)
+    km = MiniBatchKMeans(n_clusters = n_clusters, random_state = 42)
     km = km.fit(training)
 
     clusters = pd.DataFrame(km.predict(glob_full), index = glob_full.index) 
