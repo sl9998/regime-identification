@@ -5,14 +5,16 @@ market-forecasting
 
 ## Abstract
 
-Contemporary regime identification literature often neglects to confirm if observations hold and are actionable in out-of-sample periods. I developed a regime-identification algorithm using data on 16 macro-economic indicators available on january 1st 2019, which identified 4 unique economic regimes. I used statistical tests to assess performance of 40+ asset class ETFs during the 4 regime periods and used the results to develop two simple trading strategies. I then deployed the algorithm on post-2018 data where both trading strategies achieved superior returns (>150% return, sharpe > 1.18) to the benchmark equal-weighted S&P500 (98% return, sharpe = 0.65) and holding all assets classes equally (83% return, sharpe = 0.70).
+Contemporary regime identification literature often neglects to confirm if observations hold and are actionable in out-of-sample periods. I developed a regime-identification algorithm using data on 16 macro-economic indicators available on january 1st 2019, which identified 4 unique economic regimes. I used statistical tests to assess performance of 40+ asset class ETFs during the 4 regime periods and used the results to develop two simple trading strategies. I then deployed the algorithm on post-2018 data where **both trading strategies achieved <u>superior returns (>150% return, sharpe > 1.18)</u> to the benchmark equal-weighted S&P500** (98% return, sharpe = 0.65) and holding all assets classes equally (83% return, sharpe = 0.70).
 
 ![backtest plot](Images/260915_regimes.png)
 > **Figure 1: The four identified regimes plotted on logarithmic Close-Close returns of RSP (equal-weight S&P500).** Note that the regime clusters are labeled starting from zero (0).  
+<br>
 
 ![backtest plot](Images/260915_backtest.png)
 > **Figure 2: Logarithmic returns over the forward-OOS backtesting period.** 
 *strat = purely regime-based strategy; strat2 = 50% strat, 50% RSP portfolio; BM = benchmark, 100% RSP portfolio; JH = portfolio equally holding all asset class ETFs.* 
+<br>
 
 ## Installation
 
