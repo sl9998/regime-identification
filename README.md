@@ -14,7 +14,6 @@ Contemporary regime identification literature often neglects to confirm if obser
 ![backtest plot](Images/260915_backtest.png)
 > **Figure 2: Logarithmic returns over the forward-OOS backtesting period.** 
 *strat = purely regime-based strategy; strat2 = 50% strat, 50% RSP portfolio; BM = benchmark, 100% RSP portfolio; JH = portfolio equally holding all asset class ETFs.* 
-<br>
 
 ## Installation
 
