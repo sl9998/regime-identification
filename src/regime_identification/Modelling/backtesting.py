@@ -2,6 +2,7 @@
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 import seaborn as sns
 
 #
@@ -14,7 +15,7 @@ Values indicate the ratio of the portfolio to allocate to the asset.
 Ratios are adjusted to total 1 per condition.
 '''
 
-def backtest_strategies(etfs, strategies, condition_col = "cluster", start_date = None, end_date = None, plot = True): 
+def backtest_strategies(etfs, strategies, condition_col = "cluster", start_date = None, end_date = None, plot = True, leverage = 1): 
     # Convert to pd compatible datetime
     if start_date is not None: start_date = pd.to_datetime(start_date)
     if end_date is not None: end_date = pd.to_datetime(end_date)
@@ -31,26 +32,35 @@ def backtest_strategies(etfs, strategies, condition_col = "cluster", start_date 
         df = df.dropna(how = "all", axis = 0)
         # print(f"{name} strat df:\n{df}")
 
-        # Equalize columns to 1
+        # Weight columns to equal 1
         df = df.apply(lambda x: x / sum(np.abs(x.dropna())), axis = 0) # Absolute value, because shorts can be negative!
         # print(f"\"{name}\" strat df:\n{df}")
 
         # Get returns
         all_dates = etfs.index[~etfs.index.duplicated(keep = "first")]
-        returns = pd.DataFrame(0, index = all_dates, columns = df.index) # etfs[~etfs.index.duplicated(keep = "first")].loc[condition_col] # prefilled dates and cluster labels
+        returns = pd.DataFrame(0, index = all_dates, columns = df.index) # prefilled dates and cluster labels
         ## TODO: Can likely be optimized through some transform magic
         for cluster in list(df.columns):
             for ticker in list(df.index):
                 logret = etfs[(etfs["Ticker"] == ticker) & (etfs[condition_col] == cluster)].loc[:, "f_logret"]
                 multiplier = df.loc[ticker, cluster]
 
-                logret_adj = logret.dropna() * multiplier # Drop NAs to avoid problems
+                logret_adj = logret.dropna() * multiplier # Multiplier = portfolio weight. Drop NAs to avoid problems
                 
-                returns[ticker] = returns[ticker].add(logret_adj, fill_value = 0) # Fill_value means unindexed information will just add 0
+                returns[ticker] = returns[ticker].add(logret_adj, fill_value = 0) # Fill_value means unindexed information will just add 0 returns
 
-        returns["total"] = returns.sum(axis = 1) # Rowwise sum of gains. 
+        returns["total"] = returns.sum(axis = 1) * leverage # Rowwise sum of weighted gains; leverage is just a multiple 
+
+        # Bottom out leveraged portfolios
+        if leverage > 1:
+            totals = returns["total"].cumsum()
+            bottoms = totals[totals <= -1] # -1 = 100% loss = bottomed out
+            if not bottoms.empty: 
+                first_bottom = bottoms.index[0]
+                returns = returns[returns.index <= first_bottom]
 
         strat_dfs[name] = returns
+
 
     # PLOTTING
     if plot == True:
@@ -58,8 +68,10 @@ def backtest_strategies(etfs, strategies, condition_col = "cluster", start_date 
         for name, df in strat_dfs.items():
             all_totals[name] = df["total"]
 
-        all_totals = all_totals.dropna(how = "any").cumsum()
+        all_totals = all_totals.cumsum()
 
         sns.lineplot(all_totals)
+        if leverage > 1: 
+            plt.axhline(y = -1, color = "red", linestyle = "--") # Bust line for leveraged portfolios
 
     return strat_dfs
