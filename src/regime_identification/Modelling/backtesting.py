@@ -27,7 +27,7 @@ def backtest_strategies(etfs, strategies, condition_col = "cluster", start_date 
     if start_date is not None: etfs = etfs[etfs.index >= start_date]
     # print(f"cat etfs df:\n{etfs.head()}\n{etfs.tail()}")
     all_dates = etfs.index[~etfs.index.duplicated(keep = "first")]
-    n_clusters = len(pd.unique(etfs[condition_col]))
+    n_clusters = int(pd.unique(etfs[condition_col]).max()) + 1 # This method is robust for getting the largest observed cluster; +1 because 0 start
 
     # Apply strategies to etfs
     strat_dfs = {}
