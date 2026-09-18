@@ -69,7 +69,7 @@ def backtest_strategies(etfs, strategies, condition_col = "cluster", start_date 
         random_buys = pd.DataFrame()
 
         for i in range(simulate_rb):
-            random_buy_strat = pd.DataFrame(np.random.rand(len(all_assets), n_clusters), # Random weights each cluster
+            random_buy_strat = pd.DataFrame(np.random.rand(len(all_assets), n_clusters), # Random weights each cluster, equal chance of + and - 
                                             index = all_assets, columns = list(range(n_clusters))) 
             random_buy_strat = random_buy_strat.apply(lambda x: x / sum(np.abs(x.dropna())), axis = 0) # Equalized to 1 per cluster
             random_buy = pd.DataFrame()
@@ -105,16 +105,15 @@ def backtest_strategies(etfs, strategies, condition_col = "cluster", start_date 
 
         all_totals = all_totals.cumsum()
 
-        sns.lineplot(all_totals).set_ylabel("Cumulative log returns")
-
         if simulate_rb:
             random_buys = random_buys.cumsum()
             # sns.lineplot(random_buys, color = "grey", alpha = 0.2)
-            plt.plot(random_buys, color = "grey", alpha = 0.2)
+            plt.plot(random_buys, color = "grey", alpha = 0.1)
         
         if leverage > 1: 
             plt.axhline(y = -1, color = "red", linestyle = "--") # Bust line for leveraged portfolios
 
+        sns.lineplot(all_totals).set_ylabel("Cumulative log returns")
         plt.show()
         plt.close()
 
