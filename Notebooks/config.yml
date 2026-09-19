@@ -1,6 +1,9 @@
 PERIOD: 50y # Historicaly data fetched from yahoo finance
 
-SPLIT: 0.8 # Share of data to be labeled "training"
+SPLIT_DATE: # Data before this date is labeled "training", after is "test"
+- 2019 # Year
+- 1 # Month
+- 1 # Day
 
 N_CLUSTERS: 4 # amount of regimes to identify
 
