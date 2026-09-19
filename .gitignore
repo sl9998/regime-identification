@@ -7,3 +7,5 @@ venv/
 *.egg-info
 
 Data/ETFs/*.csv
+Data/Processed/ETFs/*
+Data/Processed/regime_clusters.csv
