@@ -33,7 +33,6 @@ def pull_prices(tickers, period, save_dir = "Data/Tickers"):
 # Load a single price data file
 def load(file):
     price_data = pd.read_csv(file, index_col = 0)
-    price_data = price_data.astype(float)
     date_only(price_data)
     return price_data
 

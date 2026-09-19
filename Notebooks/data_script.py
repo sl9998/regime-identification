@@ -11,14 +11,13 @@ import numpy as np
 import yaml
 from tqdm import tqdm # Loading bars
 
-# Importing the config
-config = yaml.safe_load(open("config.yml"))
-windows = config["WINDOWS"]
-
 #
 # LOAD SAVED DATA
 #
 print("Loading data...")
+
+# Importing the config
+config = yaml.safe_load(open("config.yml"))
 
 # ETFs
 print("ETFs")
@@ -27,7 +26,6 @@ etfs = load_prices("../Data/ETFs/", are_in = config["ETFS"])
 # Extramarket
 print("Extramarket")
 exm = load("../Data/Extramarket/extramarket.csv")
-
 
 #
 # END
